@@ -2,7 +2,7 @@ from contextlib import ContextDecorator
 from datetime import datetime, timezone
 
 
-class OperationTelemetry(object):
+class Telemetry(object):
     start_timestamp = None
     end_timestamp = None
     result_status = None
@@ -20,7 +20,7 @@ class OperationTelemetry(object):
             self.end_timestamp = datetime.now(timezone.utc)
 
 
-class OperationTelemetryContext(OperationTelemetry):
+class TelemetryContext(Telemetry):
     def __enter__(self, start=None):
         super().start_keeping_time(start)
         return self
@@ -30,5 +30,5 @@ class OperationTelemetryContext(OperationTelemetry):
         return self
 
 
-class OperationTelemetryDecorator(ContextDecorator, OperationTelemetryContext):
+class TelemetryDecorator(ContextDecorator, TelemetryContext):
     pass
